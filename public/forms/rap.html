@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- <script src="/public/one-step.js"></script> -->
+    <script src="/public/rap.js"></script>
+
+    <style>
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input:hover {
+            outline: none;
+            border-color: #07074d;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #97D700;
+        }
+
+
+        button {
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+
+            background-color: white; 
+            color: black; 
+            border: 2px solid #97D700;
+        }
+
+        button:hover {
+            background-color: #97D700;
+            color: white;
+        }
+
+        
+        
+        .sample {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-row-gap: 100px;
+            grid-column-gap: 50px;
+            margin: 50px;
+            justify-content: center;
+            grid-template-columns: 450px 450px;
+        }
+
+        .label-input {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 5px
+        }
+
+        label {
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        main {
+            text-align: center;
+        }
+
+        .gradation-details {
+            margin: 50px;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #my-chart {
+            margin: 200px;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .additional-detials {
+            margin: 50px;
+        }
+
+        .buttons {
+            margin: 50px;
+        }
+
+        .textarea {
+            height: 50px;
+        }
+
+        .passing_input {
+            background-color: #96d70055;
+        }
+
+        .locked_input {
+            background-color: #96d70055;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <header>
+            <a href="../index.html"><img src="../assets/gip_logo.png" alt="GIP Logo" id="gip_logo"></a>
+        </header>
+    
+        <main>
+
+            <div class="title">
+                <h1>Recycled Sample Data Entry Form</h1>
+                <h2>RAP</h2>
+            </div>
+            
+
+            <div class="form-content">
+
+                <form id="form" action="/submit-rap" method="POST">
+                    <!-- <input type="hidden" name="onestep" value="onestep"> -->
+
+                    <div class="sample">
+
+                        <h2>Sample Details</h2><p></p>
+
+                        <div class="sample-details">
+
+                            <div class="label-input">
+                                <label>
+                                    Sample #: 
+                                </label>
+                                <input type="text" name="sample_id" id="sample_id">
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    Lab (location)
+                                </label>
+                                <input type="text" name="lab" id="lab">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Date Sampled: 
+                                </label>
+                                <input type="date" name="sample_date" id="sample_date">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Time Sampled: 
+                                </label>
+                                <input type="time" name="sample_time" id="sample_time">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Sampled By: 
+                                </label>
+                                <select name="sample_by" id="sample_by" class="user">
+                                </select>
+                            </div>
+    
+                        </div>
+    
+                        <div class="material-details">
+
+                            <div class="label-input">
+                                <label>
+                                    Asphalt Plant 
+                                </label>
+                                <select name="asphalt_plant" id="asphalt_plant">
+
+                                </select>
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    RAP Type:
+                                </label>
+                                <select name="rap_type" id="rap_type">
+                                    
+                                </select>
+                            </div>    
+    
+                            <div class="label-input">
+                                <label>
+                                    Date Tested: 
+                                </label>
+                                <input type="date" name="test_date" id="test_date">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Tested By: 
+                                </label>
+                                <select name="test_by" id="test_by" class="user">
+                                </select>
+                            </div>
+    
+                        </div>
+
+                        <h2>Moisture</h2>
+
+                        <p></p>
+
+                        <div class="mass-calc">
+                            <div class="label-input">
+                                <label>
+                                    Pan: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_mass" id="pan_mass">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Pan + Wet Sample: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_wet_sample" id="pan_wet_sample">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Pan + Dry Sample: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_dry_sample" id="pan_dry_sample">
+                            </div>
+    
+                        </div>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Wet Sample Weight: 
+                                </label>
+                                <input type="number" step="0.1" name="wet_sample" id="wet_sample" class="locked_input" readonly>
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    Dry Sample Weight: 
+                                </label>
+                                <input type="number" step="0.1" name="dry_sample" id="dry_sample" class="locked_input" readonly>
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    Moisture: 
+                                </label>
+                                <input type="number" step="0.1" name="moisture" id="moisture" class="locked_input" readonly>
+                            </div>
+                        </div>
+
+                        <h2>Extraction</h2><p></p>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Original Sample Mass: 
+                                </label>
+                                <input type="number" step="0.1" name="original_sample_mass" id="original_sample_mass">
+                            </div>
+                        </div>
+
+                        <div></div>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Mass of Filter Before Extraction: 
+                                </label>
+                                <input type="number" step="0.1" name="filter_before_extraction" id="filter_before_extraction">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Mass of Filter After Extraction: 
+                                </label>
+                                <input type="number" step="0.1" name="filter_after_extraction" id="filter_after_extraction">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Mass of Fines in Filter: 
+                                </label>
+                                <input type="number" step="0.1" name="fines_filter" id="fines_filter" class="locked_input" readonly>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Mass of Cup Before Extraction: 
+                                </label>
+                                <input type="number" step="0.1" name="cup_before_extraction" id="cup_before_extraction">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Mass of Cup After Extraction: 
+                                </label>
+                                <input type="number" step="0.1" name="cup_after_extraction" id="cup_after_extraction">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Mass of Fines in Cup: 
+                                </label>
+                                <input type="number" step="0.1" name="fines_cup" id="fines_cup" class="locked_input" readonly>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Dry Aggregate Mass: 
+                                </label>
+                                <input type="number" step="0.1" name="dry_aggregate_mass" id="dry_aggregate_mass">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Total Extracted Aggregate 
+                                </label>
+                                <input type="number" step="0.1" name="total_extracted_aggregate" id="total_extracted_aggregate" class="locked_input" readonly>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="label-input">
+                                <label>
+                                    Mass of Asphalt Cement: 
+                                </label>
+                                <input type="number" step="0.1" name="mass_asphalt_cement" id="mass_asphalt_cement" class="locked_input" readonly>
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Asphalt Cement Content: 
+                                </label>
+                                <input type="number" step="0.1" name="asphalt_cement_content" id="asphalt_cement_content" class="locked_input" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+
+                    
+
+                    <div class="gradation-details">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sieve Size</th>
+                                    <th>Mass Retained</th>
+                                    <th>% Passing</th>
+                                    <th>Mix Design JMF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td><label>150 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_150mm" id="retained_150mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_150mm" id="passing_150mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_150mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>106 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_106mm" id="retained_106mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_106mm" id="passing_106mm" class="passing_input locked_input" readonly></td>
+                                     <td><input type="number" step="0.01" id="jmf_106mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>53.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_53mm" id="retained_53mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_53mm" id="passing_53mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_53mm" class="jmf_fields locked_input" readonly></td>
+                                </tr> -->
+                                <tr>
+                                    <td><label>37.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_37mm" id="retained_37mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_37mm" id="passing_37mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_37mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>26.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_26mm" id="retained_26mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_26mm" id="passing_26mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_26mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>19.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_19mm" id="retained_19mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_19mm" id="passing_19mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_19mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>16.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_16mm" id="retained_16mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_16mm" id="passing_16mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_16mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>13.2 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_13mm" id="retained_13mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_13mm" id="passing_13mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_13mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>9.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_9mm" id="retained_9mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_9mm" id="passing_9mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_9mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>4.75 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_4mm" id="retained_4mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_4mm" id="passing_4mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_4mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>2.36 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_2mm" id="retained_2mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_2mm" id="passing_2mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_2mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>1.18 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_1mm" id="retained_1mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_1mm" id="passing_1mm" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_1mm" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>600 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_600um" id="retained_600um"></td>
+                                    <td><input type="number" step="0.1" name="passing_600um" id="passing_600um" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_600um" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>300 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_300um" id="retained_300um"></td>
+                                    <td><input type="number" step="0.1" name="passing_300um" id="passing_300um" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_300um" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>150 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_150um" id="retained_150um"></td>
+                                    <td><input type="number" step="0.1" name="passing_150um" id="passing_150um" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_150um" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td><label>75 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_75um" id="retained_75um"></td>
+                                    <td><input type="number" step="0.1" name="passing_75um" id="passing_75um" class="passing_input locked_input" readonly></td>
+                                    <td><input type="number" step="0.01" id="jmf_75um" class="jmf_fields locked_input" readonly></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label>Pan</label></td>
+                                    <td><input type="number" step="0.1" name="retained_pan" id="retained_pan"></td>
+                                    <td><input type="number" step="0.1" name="passing_pan" id="passing_pan" class="passing_input locked_input" readonly></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="additional-details">
+                        <label>Comments: </label>
+                        <input class="textarea" size="70" type="text" name="comments" id="comments">
+                    </div>
+
+                    <div class="buttons">
+                        <input type="submit" id="submit">
+                    </div>
+
+                    <div id="my-chart">
+                        <canvas id="myChart"></canvas>
+                      </div>
+
+                </form>
+
+            </div>
+        </main>
+    
+        <footer>
+    
+        </footer>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quality Control</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <!-- <script src="script.js"></script> -->
+  <style>
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+    
+    .image-container {
+      position: absolute;
+      top: 100px; /* Adjust this value to position the image below the header */
+      bottom: 30px; /* Adjust this value to leave space for the footer */
+      left: 0;
+      right: 0;
+      background-image: url("assets/gip_image.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html"><img src="assets/gip_logo.png" alt="GIP Logo"></a></li>
+        <li><a href="aggregate.html">Aggregate</a></li>
+        <li><a href="asphalt.html">Asphalt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <body>
+    <div class="image-container"></div>
+  </body>
+
+  <footer style="position: fixed; bottom: 0;">
+    <p class="foot">&copy; 2023 Green Infrastructure Partners Inc.</p>
+  </footer>
+</body>
+</html>

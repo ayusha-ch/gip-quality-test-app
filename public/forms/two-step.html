@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Step Gradation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="/public/two-step.js"></script>
+
+    <style>
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input:hover {
+            outline: none;
+            border-color: #07074d;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #97D700;
+        }
+
+
+        button {
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+
+            background-color: white; 
+            color: black; 
+            border: 2px solid #97D700;
+        }
+
+        button:hover {
+            background-color: #97D700;
+            color: white;
+        }
+
+        
+        
+        .sample {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-row-gap: 100px;
+            grid-column-gap: 50px;
+            margin: 50px;
+            justify-content: center;
+            grid-template-columns: 400px 400px;
+        }
+
+        .label-input {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 5px
+        }
+
+        label {
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        main {
+            text-align: center;
+        }
+
+        .gradation-details {
+            margin: 50px;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #my-chart {
+            margin: 200px;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .additional-detials {
+            margin: 50px;
+        }
+
+        .buttons {
+            margin: 50px;
+        }
+
+        .textarea {
+            height: 50px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <header>
+            <a href="../index.html"><img src="../assets/gip_logo.png" alt="GIP Logo"></a>
+        </header>
+    
+        <main>
+
+            <div class="title">
+                <h1>Granular Sample Data Entry Form</h1>
+                <h2>Two Step Gradation</h2>
+            </div>
+            
+
+            <div class="form-content">
+
+                <form id="form" action="/submit-twostep" method="POST">
+
+
+                    <div class="sample">
+
+                        <div class="sample-details">
+
+                            <div class="label-input">
+                                <label>
+                                    Sample #: 
+                                </label>
+                                <input type="text" name="sample_id" id="sample_id">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Date Sampled: 
+                                </label>
+                                <input type="date" name="sample_date" id="sample_date">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Time Sampled: 
+                                </label>
+                                <input type="time" name="sample_time" id="sample_time">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Sampled By: 
+                                </label>
+                                <select name="sample_by" id="sample_by" class="user">
+                                </select>
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Sample Type: 
+                                </label>
+                                <input type="text" name="sample_type" id="sample_type">
+                            </div>
+    
+                        </div>
+    
+                        <div class="material-details">
+
+                            <div class="label-input">
+                                <label>
+                                    Source: 
+                                </label>
+                                <input type="text" name="source" id="source">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Material Type: 
+                                </label>
+                                <input type="text" name="material" id="material">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Specification: 
+                                </label>
+                                <select name="specification" id="specification"></select>
+                            </div>   
+    
+                            <div class="label-input">
+                                <label>
+                                    Date Tested: 
+                                </label>
+                                <input type="date" name="test_date" id="test_date">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Tested By: 
+                                </label>
+                                <select name="test_by" id="test_by" class="user">
+                                </select>
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    Location: 
+                                </label>
+                                <input type="text" name="location" id="location">
+                            </div>
+    
+                        </div>
+
+                        <div class="mass">
+                            <div class="label-input">
+                                <label>
+                                    A. Mass Total Sample: 
+                                </label>
+                                <input type="number" step="0.1" name="mass_total_sample" id="mass_total_sample">
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    B. Mass Retained: 
+                                </label>
+                                <input type="number" step="0.1" name="mass_retained" id="mass_retained">
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    C. Mass Passing: 
+                                </label>
+                                <input type="number" step="0.1" name="mass_passing" id="mass_passing">
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    D. Coarse Aggregate %: 
+                                </label>
+                                <input type="number" step="0.1" name="coarse_aggregate_percent" id="coarse_aggregate_percent">
+                            </div>
+
+                            <div class="label-input">
+                                <label>
+                                    E. Fine Aggregate %: 
+                                </label>
+                                <input type="number" step="0.1" name="fine_aggregate_percent" id="fine_aggregate_percent">
+                            </div>
+                        </div>
+
+                        <div class="mass-calc">
+                            <div class="label-input">
+                                <label>
+                                    Pan: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_mass" id="pan_mass">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Pan + Sample: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_sample_mass" id="pan_sample_mass">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Pan + Dry Sample: 
+                                </label>
+                                <input type="number" step="0.1" name="pan_dry_mass" id="pan_dry_mass">
+                            </div>
+    
+                            <div class="label-input">
+                                <label>
+                                    Moisture: 
+                                </label>
+                                <input type="number" step="0.1" name="moisture" id="moisture">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="gradation-details">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sieve Size</th>
+                                    <th>Mass Retained</th>
+                                    <th>% Passing</th>
+                                    <th><label id="specification">Specification</label></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><label>150 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_150mm" id="retained_150mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_150mm" id="passing_150mm" class="passing_input"></td>
+                                    <td><input type="text" step="0.1" name="spec_150mm" id="spec_150mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>106 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_106mm" id="retained_106mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_106mm" id="passing_106mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_106mm" id="spec_106mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>53.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_53mm" id="retained_53mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_53mm" id="passing_53mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_53mm" id="spec_53mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>37.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_37mm" id="retained_37mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_37mm" id="passing_37mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_37mm" id="spec_37mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>26.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_26mm" id="retained_26mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_26mm" id="passing_26mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_26mm" id="spec_26mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>19.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_19mm" id="retained_19mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_19mm" id="passing_19mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_19mm" id="spec_19mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>16.0 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_16mm" id="retained_16mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_16mm" id="passing_16mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_16mm" id="spec_16mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>13.2 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_13mm" id="retained_13mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_13mm" id="passing_13mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_13mm" id="spec_13mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>9.5 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_9mm" id="retained_9mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_9mm" id="passing_9mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_9mm" id="spec_9mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>4.75 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_4mm" id="retained_4mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_4mm" id="passing_4mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_4mm" id="spec_4mm" class="spec_col"></td>
+                                </tr>
+
+                                <tr><td><label> </label></td></tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">F. Fine Aggregate Mass</label></td>
+                                    <td><input type="number" step="0.1" name="fine_aggregate_mass" id="fine_aggregate_mass"></td>
+                                </tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">G. Washed Mass</label></td>
+                                    <td><input type="number" step="0.1" name="washed_mass" id="washed_mass"></td>
+                                </tr>
+                                <tr><td><label> </label></td></tr>
+
+                                <tr>
+                                    <td><label>2.36 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_2mm" id="retained_2mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_2mm" id="passing_2mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_2mm" id="spec_2mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>1.18 mm</label></td>
+                                    <td><input type="number" step="0.1" name="retained_1mm" id="retained_1mm"></td>
+                                    <td><input type="number" step="0.1" name="passing_1mm" id="passing_1mm" class="passing_input"></td>
+                                    <td><input type="text" name="spec_1mm" id="spec_1mm" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>600 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_600um" id="retained_600um"></td>
+                                    <td><input type="number" step="0.1" name="passing_600um" id="passing_600um" class="passing_input"></td>
+                                    <td><input type="text" name="spec_600um" id="spec_600um" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>300 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_300um" id="retained_300um"></td>
+                                    <td><input type="number" step="0.1" name="passing_300um" id="passing_300um" class="passing_input"></td>
+                                    <td><input type="text" name="spec_300um" id="spec_300um" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>150 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_150um" id="retained_150um"></td>
+                                    <td><input type="number" step="0.1" name="passing_150um" id="passing_150um" class="passing_input"></td>
+                                    <td><input type="text" name="spec_150um" id="spec_150um" class="spec_col"></td>
+                                </tr>
+                                <tr>
+                                    <td><label>75 um</label></td>
+                                    <td><input type="number" step="0.1" name="retained_75um" id="retained_75um"></td>
+                                    <td><input type="number" step="0.1" name="passing_75um" id="passing_75um" class="passing_input"></td>
+                                    <td><input type="text" name="spec_75um" id="spec_75um" class="spec_col"></td>
+                                </tr>
+
+                                <!-- <tr>
+                                    <td><label>Pan</label></td>
+                                    <td><input type="number" step="0.1" name="retained_pan" id="retained_pan"></td>
+                                    <td><input type="number" step="0.1" name="passing_pan" id="passing_pan" class="passing_input"></td>
+                                </tr> -->
+
+                                <tr><td><label> </label></td></tr>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Mass (g)</th>
+                                    <th>Percent</th>
+                                </tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Coated: </label></td>
+                                    <td><input type="number" step="0.1" name="coated_mass" id="coated_mass"></td>
+                                    <td><input type="number" step="0.1" name="coated_percent" id="coated_percent"></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Uncoated: </label></td>
+                                    <td><input type="number" step="0.1" name="uncoated_mass" id="uncoated_mass"></td>
+                                    <td><input type="number" step="0.1" name="uncoated_percent" id="uncoated_percent"></td>
+                                </tr> -->
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Glass or Ceramic: </label></td>
+                                    <td><input type="number" step="0.1" name="glass_ceramic_mass" id="glass_ceramic_mass"></td>
+                                    <td><input type="number" step="0.1" name="glass_ceramic_percent" id="glass_ceramic_percent"></td>
+                                </tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Deleterious Material: </label></td>
+                                    <td><input type="number" step="0.1" name="deleterious_mass" id="deleterious_mass"></td>
+                                    <td><input type="number" step="0.1" name="deleterious_percent" id="deleterious_percent"></td>
+                                </tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Crushed Concrete: </label></td>
+                                    <td><input type="number" step="0.1" name="crushed_concrete_mass" id="crushed_concrete_mass"></td>
+                                    <td><input type="number" step="0.1" name="crushed_concrete_percent" id="crushed_concrete_percent"></td>
+                                </tr>
+                                <tr>
+                                    <td style="justify-content: right;"><label style="text-align: right;">Total: </label></td>
+                                    <td><input type="number" step="0.1" name="total_contaminant_mass" id="total_contaminant_mass"></td>
+                                    <td><input type="number" step="0.1" name="total_contaminant_percent" id="total_contaminant_percent"></td>
+                                </tr>
+
+                                <tr><td><label> </label></td></tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="additional-details">
+                        <label>Comments: </label>
+                        <input class="textarea" size="70" type="text" name="comments" id="comments">
+                    </div>
+
+                    <div class="buttons">
+                        <input type="submit" id="submit">
+                    </div>
+
+                    <div id="my-chart">
+                        <canvas id="myChart"></canvas>
+                      </div>
+
+                </form>
+
+            </div>
+        </main>
+    
+        <footer>
+    
+        </footer>
+    </div>
+    
+</body>
+</html>
